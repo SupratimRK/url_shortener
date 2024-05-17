@@ -91,12 +91,16 @@ if (isset($_GET['code'])) {
             <input type="text" name="url" placeholder="Enter URL to shorten" required>
             <br>
             <input type="text" name="custom_code" placeholder="Custom short code (optional)">
-            <input type="submit" value="Shorten">
+            <button class="ui-btn" type="submit">
+                <span>Shorten</span>
+            </button>
         </form>
 
         <?php if (isset($shortened_url)): ?>
         <div class="shortened-url">
-            <p>Shortened URL:</p> <div class="xc"></div><p> <a href="<?php echo $shortened_url; ?>"><?php echo $shortened_url; ?></a> 
+            <p>Shortened URL:</p>
+            <div class="xc"></div>
+            <p><a href="<?php echo $shortened_url; ?>"><?php echo $shortened_url; ?></a>
             <button class="btn" onclick="copyToClipboard('<?php echo $shortened_url; ?>')">Copy</button></p>
         </div>
         <?php endif; ?>
@@ -116,3 +120,270 @@ if (isset($_GET['code'])) {
     </script>
 </body>
 </html>
+
+<style>
+:root {
+    --primary-color: #FFD700;
+    --secondary-color: #fafafa;
+    --colc: #000;
+    --cold: #000;
+}
+
+body {
+    background-image: radial-gradient(circle at center center, transparent 0%,rgb(0,0,0) 99%),repeating-linear-gradient(0deg, rgba(163, 163, 163,0.2) 0px, rgba(163, 163, 163,0.2) 1px,transparent 1px, transparent 6px),repeating-linear-gradient(90deg, rgba(163, 163, 163,0.2) 0px, rgba(163, 163, 163,0.2) 1px,transparent 1px, transparent 6px),linear-gradient(90deg, rgb(0,0,0),rgb(0,0,0));
+    color: var(--secondary-color);
+    font-weight: 600;
+    font-family: Menlo, Roboto Mono, monospace;
+}
+
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: var(--primary-color);
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid var(--secondary-color);
+    background-color: transparent;
+    color: var(--secondary-color);
+    border-radius: 5px;
+    outline: none;
+    box-sizing: border-box;
+    align-items: center;
+    font-weight: 600;
+    font-family: Menlo, Roboto Mono, monospace;
+}
+
+input[type="text"]:focus,
+input[type="submit"]:focus,
+button:focus {
+    border: 1px solid var(--secondary-color);
+}
+
+input[type="submit"],
+button {
+    cursor: pointer;
+}
+
+.shortened-url {
+    padding: 10px;
+    border-radius: 5px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--secondary-color);
+}
+
+.shortened-url p {
+    margin-bottom: 10px;
+    text-align: center;
+    letter-spacing: 0.1rem;
+}
+
+.xc {
+    border: 1px dashed var(--secondary-color);
+    padding: 0 50% 0 50%;
+}
+
+.shortened-url a {
+    color: var(--primary-color);
+    text-decoration: none;
+    margin: 10px;
+}
+
+.shortened-url button {
+    align-items: center;
+    background-color: var(--secondary-color);
+    color: #000;
+    border: none;
+    padding: 10px 10px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid var(--secondary-color);
+}
+
+.btn:hover {
+    color: var(--primary-color);
+    background-color: transparent;
+    border: 1px solid var(--secondary-color);
+    transition: 0.7s;
+    letter-spacing: .1rem;
+}
+
+.btn {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 10;
+    border: 1px solid var(--secondary-color);
+    border-radius: 5px;
+    outline: none;
+    box-sizing: border-box;
+    align-items: center;
+    font-weight: 800;
+    font-family: Menlo, Roboto Mono, monospace;
+    font-size: 16px;
+    letter-spacing: 0.2rem;
+}
+
+input[type="submit"]:hover {
+    color: var(--primary-color);
+    background-color: transparent;
+    transition: 0.7s;
+}
+
+#nm {
+    text-align: center;
+}
+
+.ui-btn {
+    --btn-default-bg: transparent;
+    --btn-padding: 10px;
+    --btn-hover-bg: transparent;
+    --btn-transition: 1s;
+    --btn-letter-spacing: .1rem;
+    --btn-animation-duration: 1.2s;
+    --btn-shadow-color: rgba(0, 0, 0, 0.137);
+    --btn-shadow: 0 2px 10px 0 var(--btn-shadow-color);
+    --hover-btn-color: #FFD700;
+    --default-btn-color: #fafafa;
+    --font-size: 16px;
+    --font-weight: 600;
+    --font-family: Menlo, Roboto Mono, monospace;
+}
+
+.ui-btn {
+    width: 100%;
+    box-sizing: border-box;
+    padding: var(--btn-padding);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--default-btn-color);
+    font: var(--font-weight) var(--font-size) var(--font-family);
+    background: var(--btn-default-bg);
+    border: none;
+    cursor: pointer;
+    transition: var(--btn-transition);
+    overflow: hidden;
+    box-shadow: var(--btn-shadow);
+    border: 1px solid var(--secondary-color);
+    border-radius: 5px;
+}
+
+.ui-btn span {
+    letter-spacing: var(--btn-letter-spacing);
+    transition: var(--btn-transition);
+    box-sizing: border-box;
+    position: relative;
+    background: inherit;
+}
+
+.ui-btn span::before {
+    box-sizing: border-box;
+    position: absolute;
+    content: "";
+    background: inherit;
+}
+
+.ui-btn:hover, .ui-btn:focus {
+    background: var(--btn-hover-bg);
+}
+
+.ui-btn:hover span, .ui-btn:focus span {
+    color: var(--hover-btn-color);
+}
+
+.ui-btn:hover span::before, .ui-btn:focus span::before {
+    animation: chitchat linear both var(--btn-animation-duration);
+}
+
+@keyframes chitchat {
+    0% {
+        content: "#";
+    }
+    5% {
+        content: ".";
+    }
+    10% {
+        content: "^{";
+    }
+    15% {
+        content: "-!";
+    }
+    20% {
+        content: "#$_";
+    }
+    25% {
+        content: "№:0";
+    }
+    30% {
+        content: "#{+.";
+    }
+    35% {
+        content: "@}-?";
+    }
+    40% {
+        content: "?{4@%";
+    }
+    45% {
+        content: "=.,^!";
+    }
+    50% {
+        content: "?2@%";
+    }
+    55% {
+        content: "\;1}]";
+    }
+    60% {
+        content: "?{%:%";
+        right: 0;
+    }
+    65% {
+        content: "|{f[4";
+        right: 0;
+    }
+    70% {
+        content: "{4%0%";
+        right: 0;
+    }
+    75% {
+        content: "'1_0<";
+        right: 0;
+    }
+    80% {
+        content: "{0%";
+        right: 0;
+    }
+    85% {
+        content: "]>'";
+        right: 0;
+    }
+    90% {
+        content: "4";
+        right: 0;
+    }
+    95% {
+        content: "2";
+        right: 0;
+    }
+    100% {
+        content: "";
+        right: 0;
+    }
+}
+</style>
