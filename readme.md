@@ -21,8 +21,8 @@ A simple URL shortener application built with PHP and MySQL. This application al
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/url-shortener.git
-cd url-shortener
+git clone https://github.com/SupratimRK/url-shortener.git
+cd url-shortener```
 
 ### Step 2: Set Up the Database
 
