@@ -22,7 +22,8 @@ A simple URL shortener application built with PHP and MySQL. This application al
 
 ```bash
 git clone https://github.com/SupratimRK/url-shortener.git
-cd url-shortener```
+cd url-shortener
+```
 
 ### Step 2: Set Up the Database
 
@@ -147,6 +148,7 @@ Contributions are welcome! Please feel free to submit a Pull Request or open an 
 
 For any inquiries or issues, please contact [supratimrk@outlook.com](mailto:supratimrk@outlook.com).
 
-```
+```Plaintext
 
 Make sure to replace placeholders like `SupratimRK`, `url_shortener`, and `supratimrk@outlook.com` with the actual values relevant to your project. This `README.md` provides detailed installation instructions, from setting up the database to configuring the web server and using the application.
+```
