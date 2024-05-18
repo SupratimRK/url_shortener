@@ -35,6 +35,11 @@ function isShortCodeAvailable($shortCode) {
 function shortenURL($url, $customCode = null) {
     global $conn;
 
+    // Add "https://" prefix if missing
+    if (!preg_match('~^(?:f|ht)tps?://~i', $url)) {
+        $url = 'https://' . $url;
+    }
+
     // Remove protocol (http:// or https://) from the URL
     $urlWithoutProtocol = preg_replace('#^https?://#', '', $url);
 
@@ -61,6 +66,7 @@ function shortenURL($url, $customCode = null) {
         }
     }
 }
+
 
 // If form is submitted to shorten URL
 if (isset($_POST['url'])) {
