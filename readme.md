@@ -1,6 +1,3 @@
-Certainly! Here is a detailed `README.md` file for your URL shortener project:
-
-```markdown
 # URL Shortener
 
 A simple URL shortener application built with PHP and MySQL. This application allows users to shorten URLs and retrieve the original URLs using short codes.
@@ -26,7 +23,6 @@ A simple URL shortener application built with PHP and MySQL. This application al
 ```bash
 git clone https://github.com/your-username/url-shortener.git
 cd url-shortener
-```
 
 ### Step 2: Set Up the Database
 
@@ -63,9 +59,9 @@ cd url-shortener
     ```php
     <?php
     // MySQL connection parameters
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
+    $servername = "yourhost";
+    $username = "yourusername";
+    $password = "yourpw";
     $database = "url_shortener";
 
     // Connect to MySQL
@@ -149,8 +145,8 @@ Contributions are welcome! Please feel free to submit a Pull Request or open an 
 
 ## Contact
 
-For any inquiries or issues, please contact [your-email@example.com](mailto:your-email@example.com).
+For any inquiries or issues, please contact [supratimrk@outlook.com](mailto:supratimrk@outlook.com).
 
 ```
 
-Make sure to replace placeholders like `your-username`, `path_to_your_project_directory`, and `your-email@example.com` with the actual values relevant to your project. This `README.md` provides detailed installation instructions, from setting up the database to configuring the web server and using the application.
+Make sure to replace placeholders like `SupratimRK`, `url_shortener`, and `supratimrk@outlook.com` with the actual values relevant to your project. This `README.md` provides detailed installation instructions, from setting up the database to configuring the web server and using the application.
