@@ -39,7 +39,7 @@ function shortenURL($url, $customCode = null) {
     $urlWithoutProtocol = preg_replace('#^https?://#', '', $url);
 
     // Check if the URL without protocol already exists in the database
-    $sql = "SELECT short_code FROM urls WHERE REPLACE(original_url, 'https://', '') = '$urlWithoutProtocol'";
+    $sql = "SELECT short_code FROM urls WHERE REPLACE(REPLACE(original_url, 'https://', ''), 'http://', '') = '$urlWithoutProtocol'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
@@ -48,8 +48,10 @@ function shortenURL($url, $customCode = null) {
         return $row['short_code'];
     } else {
         // If URL doesn't exist, generate a new short code
-        $shortCode = $customCode ? $customCode : generateShortCode();
-        
+        do {
+            $shortCode = $customCode ? $customCode : generateShortCode();
+        } while (!$customCode && !isShortCodeAvailable($shortCode));
+
         // Insert the new URL and short code into the database
         $sql = "INSERT INTO urls (original_url, short_code) VALUES ('$url', '$shortCode')";
         if ($conn->query($sql) === TRUE) {
@@ -60,23 +62,19 @@ function shortenURL($url, $customCode = null) {
     }
 }
 
-
-
 // If form is submitted to shorten URL
 if (isset($_POST['url'])) {
     $url = $_POST['url'];
     $customCode = isset($_POST['custom_code']) ? $_POST['custom_code'] : null;
     $shortened = shortenURL($url, $customCode);
     if ($shortened) {
-        $shortened_url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]?code=$shortened";
-        // Replace it with just ?code=
-        $shortened_url = preg_replace('/\?i=\d+\?code=/', '?code=', $shortened_url);
+        $shortened_url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $shortened_url = preg_replace('/\?.*/', '', $shortened_url); // Remove existing query parameters
+        $shortened_url .= "?x=$shortened";
     } else {
         $shortened_url = "Failed to shorten URL.";
     }
 }
-
-
 
 // If short code is provided to expand URL
 if (isset($_GET['x'])) {
@@ -115,9 +113,9 @@ if (isset($_GET['x'])) {
 
         <?php if (isset($shortened_url)): ?>
         <div class="shortened-url">
-            <p>Shortened URL:</p>
+            <p>Shortened URL</p>
             <div class="xc"></div>
-            <p><a href="<?php echo $shortened_url; ?>"><?php echo $shortened_url; ?></a>
+            <p><a href="<?php echo $shortened_url; ?>"><?php echo str_replace('http://', '', $shortened_url); ?></a>
             <button class="btn" onclick="copyToClipboard('<?php echo $shortened_url; ?>')">Copy</button></p>
         </div>
         <?php endif; ?>

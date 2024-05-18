@@ -113,9 +113,9 @@ if (isset($_GET['x'])) {
 
         <?php if (isset($shortened_url)): ?>
         <div class="shortened-url">
-            <p>Shortened URL:</p>
+            <p class="xrl">Shortened URL</p>
             <div class="xc"></div>
-            <p><a href="<?php echo $shortened_url; ?>"><?php echo str_replace('http://', '', $shortened_url); ?></a>
+            <p class="url"><a href="<?php echo $shortened_url; ?>"><?php echo str_replace('http://', '', $shortened_url); ?></a>
             <button class="btn" onclick="copyToClipboard('<?php echo $shortened_url; ?>')">Copy</button></p>
         </div>
         <?php endif; ?>
