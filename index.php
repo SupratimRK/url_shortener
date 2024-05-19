@@ -74,7 +74,7 @@ if (isset($_POST['url'])) {
     $customCode = isset($_POST['custom_code']) ? $_POST['custom_code'] : null;
     $shortened = shortenURL($url, $customCode);
     if ($shortened) {
-        $shortened_url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $shortened_url = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         $shortened_url = preg_replace('/\?.*/', '', $shortened_url); // Remove existing query parameters
         $shortened_url .= "?x=$shortened";
     } else {
@@ -104,6 +104,7 @@ if (isset($_GET['x'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>URL Shortener</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="dnx.png">
 </head>
 <body>
     <div class="container">
@@ -121,7 +122,7 @@ if (isset($_GET['x'])) {
         <div class="shortened-url">
             <p class="xrl">Shortened URL</p>
             <div class="xc"></div>
-            <p class="url"><a href="<?php echo $shortened_url; ?>"><?php echo str_replace('http://', '', $shortened_url); ?></a>
+            <p class="url"><a href="<?php echo $shortened_url; ?>"><?php echo str_replace('https://', '', $shortened_url); ?></a>
             <button class="btn" onclick="copyToClipboard('<?php echo $shortened_url; ?>')">Copy</button></p>
         </div>
         <?php endif; ?>
