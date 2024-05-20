@@ -1,17 +1,5 @@
 <?php
-// MySQL connection parameters
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "url_shortener";
-
-// Connect to MySQL
-$conn = new mysqli($servername, $username, $password, $database);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include 'dblink.php';
 
 // Function to generate random short code
 function generateShortCode($length = 6) {
@@ -105,6 +93,7 @@ if (isset($_GET['x'])) {
     <title>URL Shortener</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="dnx.png">
+    <script src="qrcode.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -122,8 +111,13 @@ if (isset($_GET['x'])) {
         <div class="shortened-url">
             <p class="xrl">Shortened URL</p>
             <div class="xc"></div>
-            <p class="url"><a href="<?php echo $shortened_url; ?>"><?php echo str_replace('https://', '', $shortened_url); ?></a>
-            <button class="btn" onclick="copyToClipboard('<?php echo $shortened_url; ?>')">Copy</button></p>
+            <p class="url">
+                <a href="<?php echo $shortened_url; ?>"><?php echo str_replace('https://', '', $shortened_url); ?></a>
+                <button class="btn" onclick="copyToClipboard('<?php echo $shortened_url; ?>')">Copy</button>
+                <button class="btn" id="generateBtn" onclick="generateQRCode('<?php echo $shortened_url; ?>')">QR Code</button>
+                <button class="btn" id="downloadBtn" style="display:none;" onclick="downloadQRCode('<?php echo $shortened_url; ?>')">Download QR</button>
+            </p>
+            <div id="qrcode"></div>
         </div>
         <?php endif; ?>
         <p id="nm">Crafted with 💛 by Supratim</p>
@@ -138,6 +132,38 @@ if (isset($_GET['x'])) {
         document.execCommand("copy");
         document.body.removeChild(tempInput);
         alert("Copied to clipboard!");
+    }
+
+    function generateQRCode(url) {
+        var qrCodeContainer = document.getElementById('qrcode');
+        qrCodeContainer.innerHTML = '';
+
+        var qrcode = new QRCode(qrCodeContainer, {
+            text: url,
+            width: 128,
+            height: 128,
+            colorDark: "#FAFAFA",
+            colorLight: "rgba(0, 0, 0, 0.0)",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
+        document.getElementById('generateBtn').style.display = 'none';
+        document.getElementById('downloadBtn').style.display = 'inline-block';
+    }
+
+    function downloadQRCode(url) {
+        var qrCodeContainer = document.getElementById('qrcode').getElementsByTagName('img')[0];
+        var qrImage = qrCodeContainer.src;
+        var downloadLink = document.createElement('a');
+        downloadLink.href = qrImage;
+
+        // Create a valid filename from the URL
+        var filename = url.replace(/^https?:\/\//, '').replace(/[^a-zA-Z0-9]/g, '_') + '.png';
+        downloadLink.download = filename;
+
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
     }
     </script>
 </body>
