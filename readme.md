@@ -31,7 +31,7 @@ A **modern and scalable** URL shortener application built with **PHP** and **MyS
 ### 1️⃣ Clone the Repository  
 
 ```bash  
-git clone https://github.com/SupratimRK/url-shortener.git  
+git https://github.com/SupratimRK/url_shortener.git 
 cd url-shortener  
 ```  
 
@@ -180,8 +180,8 @@ For inquiries, feedback, or support, reach out to **[supratimrk@outlook.com](mai
 ---
 
 💡 **Demo the Application Now:**  
-- **🌍 Production:** [demo.com](http://demo.com)  
-- **⚙️ Development:** [demo2.com](http://demo2.com)  
+- **🌍 Production:** [N/A](N/A)  
+- **⚙️ Development:** [xrl.rf.gd](https://xrl.rf.gd)  
 
 **Visit and explore the app live:** [xrl.rf.gd](https://xrl.rf.gd/)  
 
